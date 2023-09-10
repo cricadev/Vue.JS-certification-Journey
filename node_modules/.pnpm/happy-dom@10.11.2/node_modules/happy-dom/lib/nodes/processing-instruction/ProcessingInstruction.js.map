@@ -1,0 +1,1 @@
+{"version":3,"file":"ProcessingInstruction.js","sourceRoot":"","sources":["../../../src/nodes/processing-instruction/ProcessingInstruction.ts"],"names":[],"mappings":"AACA,OAAO,aAAa,MAAM,oCAAoC,CAAC;AAC/D,OAAO,YAAY,MAAM,yBAAyB,CAAC;AAEnD;;;;GAIG;AACH,MAAM,CAAC,OAAO,OAAO,qBAAsB,SAAQ,aAAa;IAAhE;;QACiB,aAAQ,GAAG,YAAY,CAAC,yBAAyB,CAAC;IAEnE,CAAC;CAAA"}

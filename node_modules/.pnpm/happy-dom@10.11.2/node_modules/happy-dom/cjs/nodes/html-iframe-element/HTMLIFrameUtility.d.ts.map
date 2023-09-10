@@ -1,0 +1,1 @@
+{"version":3,"file":"HTMLIFrameUtility.d.ts","sourceRoot":"","sources":["../../../src/nodes/html-iframe-element/HTMLIFrameUtility.ts"],"names":[],"mappings":"AAKA,OAAO,iBAAiB,MAAM,wBAAwB,CAAC;AAEvD;;GAEG;AACH,MAAM,CAAC,OAAO,OAAO,iBAAiB;IACrC;;;;OAIG;WACiB,QAAQ,CAAC,OAAO,EAAE,iBAAiB,GAAG,OAAO,CAAC,IAAI,CAAC;CAqEvE"}
