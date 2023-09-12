@@ -81,3 +81,30 @@ form {
 .form-group label {
   @apply text-white text-sm;
 }
+
+.movie-item-actions-list-wrapper {
+  @apply group-hover:flex shrink-0 hidden items-center justify-end space-x-2;
+}
+
+.movie-item-action-edit-button {
+  @apply rounded-full bg-gray-200 p-3 text-gray-800 hover:text-white hover:bg-indigo-500;
+}
+
+.movie-item-action-remove-button {
+  @apply rounded-full bg-gray-200 p-3 text-gray-800 hover:text-white hover:bg-red-500;
+}
+
+.flex-spacer {
+  @apply w-full flex-1;
+}
+.button {
+  @apply bg-gray-500 hover:bg-gray-400 p-2 rounded-md;
+}
+
+.button-primary {
+  @apply bg-cyan-500 hover:bg-cyan-400 p-2 rounded-md text-white;
+}
+
+.button-disabled {
+  @apply bg-gray-600 text-gray-400 cursor-not-allowed;
+}
