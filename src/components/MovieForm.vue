@@ -127,10 +127,10 @@ function cleanUpForm() {
           <label for="theaters">Is in theathers:</label>
           <input type="checkbox" id="featured" v-model="form.inTheaters" />
         </div>
-        <div class="form-group">
-          <button class="absolute px-2 text-2xl text-white bg-blue-500 rounded-full top-4 right-4"
+        <div class="flex flex-row justify-between gap-2">
+          <button class="px-2 text-2xl text-white bg-blue-500 rounded-full "
         @click="cancelForm">Cancel</button>
-          <button type="submit" class="px-8 m-4 text-red-500 bg-white rounded-md">Submit</button>
+          <button type="submit" class="px-2 text-red-500 bg-white rounded-md ">Submit</button>
         </div>
       </div>
     </form>

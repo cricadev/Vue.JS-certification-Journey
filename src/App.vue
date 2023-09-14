@@ -1,7 +1,9 @@
 <script setup>
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, ref, defineAsyncComponent } from "vue";
 import MovieItem from "./components/MovieItem.vue";
-import MovieForm from "./components/MovieForm.vue";
+
+const AppModal = defineAsyncComponent(() => import("./components/AppModal.vue"));
+const MovieForm = defineAsyncComponent(() => import("./components/MovieForm.vue"));
 /*
 These are Icons that you can use, of course you can use other ones if you prefer.
 */
@@ -106,12 +108,12 @@ function removeRatings() {
     </div>
     <!-- add movie button-->
 
-    <div class="fixed z-20 top-4 right-4">
 
-      <div class="relative flex items-center justify-center w-screen h-screen " v-if="showMovieForm">
-        <movie-form @update:modelValue="saveMovie" @cancel="hideForm" :modelValue="currentMovie"></movie-form>
-      </div>
-    </div>
+
+    <app-modal @close="hideForm" title="Add movie" v-if="showMovieForm">
+      <movie-form @update:modelValue="saveMovie" @cancel="hideForm" :modelValue="currentMovie"></movie-form>
+    </app-modal>
+
     <!-- movie list-->
     <div class="pt-40 movie-list">
       <!--movie item-->

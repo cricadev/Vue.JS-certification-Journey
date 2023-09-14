@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, defineProps, defineEmits } from 'vue';
+import { ref, computed } from 'vue';
 import { StarIcon, TrashIcon, PencilIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
