@@ -13,20 +13,27 @@ defineProps({
 defineEmits(["close"]);
 </script>
 <template>
-  <transition>
-    <div v-if="show" class="relative flex flex-col items-center justify-center w-screen h-screen bg-modal">
-      <h2 class="text-2xl text-red-400">{{ title }}</h2>
-      <button class="absolute px-2 text-2xl text-white bg-blue-500 rounded-full top-4 right-4" @click="$emit('close')">
+  <Transition>
+    <div v-if="show"
+      class="absolute top-0 left-0 z-30 grid items-center justify-center w-screen h-screen bg-black/80 place-items-center"
+      id="bg-modal">
+      <h2 class="relative z-10 pt-20 text-2xl text-red-400 place-self-start">{{ title }}</h2>
+      <button class="absolute z-10 px-2 text-2xl text-white bg-blue-500 rounded-full top-4 right-4"
+        @click="$emit('close')">
         X
       </button>
-      <slot class="form-modal"></slot>
+      <div class="modal-wrapper-inner">
+        <slot></slot>
+      </div>
     </div>
-  </transition>
+  </Transition>
 </template>
 
-<style>
-.v-enter-active .bg-modal,
-.v-leave-active .bg-modal {
+<style scoped>
+.v-enter-active,
+.v-leave-active,
+.v-enter-active .modal-wrapper-inner,
+.v-leave-active .modal-wrapper-inner {
   transition: all 0.5s ease;
 }
 
@@ -35,8 +42,12 @@ defineEmits(["close"]);
   opacity: 0;
 }
 
-.v-enter-from .form-modal,
-.v-leave-to .form-modal {
-  transform: translateY(-50px);
+.v-enter-from .modal-wrapper-inner,
+.v-leave-to .modal-wrapper-inner {
+  transform: translateX(-100px);
+}
+
+.modal-wrapper-inner {
+  @apply absolute flex items-center justify-center top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] max-w-lg w-full;
 }
 </style>

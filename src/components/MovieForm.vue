@@ -1,11 +1,14 @@
 <script setup>
-import { reactive } from "vue";
+import { reactive, onMounted, ref } from "vue";
 
 const emit = defineEmits(["update:modelValue", "cancel"]);
 const props = defineProps({
   modelValue: { type: Object, default: null },
 });
-
+const nameInput = ref(null);
+onMounted(() => {
+  nameInput.value.focus();
+});
 const genres = reactive([
   { text: "Drama", value: "Drama" },
   { text: "Crime", value: "Crime" },
@@ -96,12 +99,11 @@ function cleanUpForm() {
 
 </script>
 <template lang="">
-    <form class="relative flex items-center justify-center modal-wrapper" @submit.prevent="saveMovie">
-  
+    <form class="" @submit.prevent="saveMovie">
       <div class="mt-10">
         <div class="form-group">
           <label for="name">Name:</label>
-          <input type="text" id="name" name="name" required v-model="form.name">
+          <input ref="nameInput" type="text" id="name" name="name" required v-model="form.name">
         </div>
         <div class="form-group">
           <label for="description">Description:</label>

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { StarIcon, TrashIcon, PencilIcon } from "@heroicons/vue/24/solid";
+import { StarIcon, TrashIcon, PencilIcon, EyeIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
   movie: {
@@ -38,6 +38,11 @@ const onRatingChange = (newRating) => {
           <button class="p-2 text-white bg-blue-500 rounded-full hover:bg-red-500" @click="remove">
             <trash-icon class="w-4 h-4"></trash-icon>
           </button>
+          <router-link :to="`/movie/${movie.id}`" class="p-2 text-white bg-blue-500 rounded-full hover:bg-red-500" >
+            <eye-icon class="w-4 h-4"></eye-icon>
+          </router-link>
+          
+          
         </div>
         <span class="absolute z-10 grid w-12 h-2 top-4 right-4">
           <StarIcon class="w-12 h-12" :class="[
