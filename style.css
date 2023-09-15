@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 .app {
-  @apply max-w-full flex items-center justify-center h-screen mx-auto;
+  @apply max-w-full flex items-center justify-center h-screen mx-auto py-16 bg-[#2C3D4F];
 }
 
 .movie-list {
@@ -107,4 +107,8 @@ form {
 
 .button-disabled {
   @apply bg-gray-600 text-gray-400 cursor-not-allowed;
+}
+
+.challenge-item {
+  @apply max-w-sm rounded overflow-hidden shadow-lg  hover:shadow-[#50D89B] transition-all duration-300 bg-transparent;
 }
