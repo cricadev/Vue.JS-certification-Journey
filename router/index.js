@@ -3,6 +3,7 @@ import Home from "../src/pages/index.vue";
 import Movies from "../src/pages/Movies.vue";
 import Movie from "../src/pages/Movie.vue";
 import Error404 from "../src/pages/Error.vue";
+import Countdown from "../src/pages/Countdown.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -14,7 +15,10 @@ const router = createRouter({
       path: "/movies",
       component: Movies,
     },
-
+    {
+      path: "/countdown",
+      component: Countdown,
+    },
     {
       path: "/movie/:id",
       component: Movie,
