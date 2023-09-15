@@ -96,8 +96,6 @@ function cleanUpForm() {
 
 </script>
 <template lang="">
-
-
     <form class="relative flex items-center justify-center modal-wrapper" @submit.prevent="saveMovie">
   
       <div class="mt-10">
@@ -134,11 +132,4 @@ function cleanUpForm() {
         </div>
       </div>
     </form>
-  
-
-
-
 </template>
-<style lang="">
-  
-</style>

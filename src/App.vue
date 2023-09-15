@@ -1,8 +1,49 @@
+
+<template>
+  <div class="">
+    <div class="text-2xl font-bold">Movie App</div>
+    <!-- header movie app -->
+    <!-- total and average rating -->
+    <div class="flex justify-between w-full p-4">
+
+      <div class="flex gap-2 text-white">
+        <div class="text-2xl font-bold">Total: {{ totalMovies }}</div> /
+        <div class="text-2xl font-bold">Average rating: {{ averageRating }}</div>
+      </div>
+      <div class="flex gap-2">
+        <button class="movie-actions-list-action-button" :class="{
+          'button-primary': !showMovieForm,
+          'button-disabled': showMovieForm,
+        }" @click="removeRatings" :disabled="showMovieForm">Restart ratings</button>
+        <button class="movie-actions-list-action-button" :class="{
+          'button-primary': !showMovieForm,
+          'button-disabled': showMovieForm,
+        }" @click="showForm" :disabled="showMovieForm">Add movie</button>
+      </div>
+    </div>
+    <!-- add movie button-->
+
+
+
+    <app-modal @close="hideForm" :title="currentMovie?.id ? 'Edit Movie' : 'Add Movie'" :show="showMovieForm">
+      <movie-form @update:modelValue="saveMovie" @cancel="hideForm" :modelValue="currentMovie"></movie-form>
+    </app-modal>
+
+    <!-- movie list-->
+    <div class="pt-40 movie-list">
+      <!--movie item-->
+      <movie-item @update:rating="updateRating" @remove="removeMovie" @edit="editMovie"
+        v-for="(movie, movieIndex) in movies" :movie="movie" :key="movie.id"></movie-item>
+
+    </div>
+
+  </div>
+</template>
 <script setup>
 import { computed, reactive, ref, defineAsyncComponent } from "vue";
 import MovieItem from "./components/MovieItem.vue";
+import AppModal from "./components/AppModal.vue";
 
-const AppModal = defineAsyncComponent(() => import("./components/AppModal.vue"));
 const MovieForm = defineAsyncComponent(() => import("./components/MovieForm.vue"));
 /*
 These are Icons that you can use, of course you can use other ones if you prefer.
@@ -84,46 +125,6 @@ function removeRatings() {
 
 </script>
 
-<template>
-  <div class="">
-    <div class="text-2xl font-bold">Movie App</div>
-    <!-- header movie app -->
-    <!-- total and average rating -->
-    <div class="flex justify-between w-full p-4">
-
-      <div class="flex gap-2 text-white">
-        <div class="text-2xl font-bold">Total: {{ totalMovies }}</div> /
-        <div class="text-2xl font-bold">Average rating: {{ averageRating }}</div>
-      </div>
-      <div class="flex gap-2">
-        <button class="movie-actions-list-action-button" :class="{
-          'button-primary': !showMovieForm,
-          'button-disabled': showMovieForm,
-        }" @click="removeRatings" :disabled="showMovieForm">Restart ratings</button>
-        <button class="movie-actions-list-action-button" :class="{
-          'button-primary': !showMovieForm,
-          'button-disabled': showMovieForm,
-        }" @click="showForm" :disabled="showMovieForm">Add movie</button>
-      </div>
-    </div>
-    <!-- add movie button-->
-
-
-
-    <app-modal @close="hideForm" title="Add movie" v-if="showMovieForm">
-      <movie-form @update:modelValue="saveMovie" @cancel="hideForm" :modelValue="currentMovie"></movie-form>
-    </app-modal>
-
-    <!-- movie list-->
-    <div class="pt-40 movie-list">
-      <!--movie item-->
-      <movie-item @update:rating="updateRating" @remove="removeMovie" @edit="editMovie"
-        v-for="(movie, movieIndex) in movies" :movie="movie" :key="movie.id"></movie-item>
-
-    </div>
-
-  </div>
-</template>
 <style>
 .movie-container {
   display: grid;
