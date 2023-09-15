@@ -11,6 +11,7 @@
   "dependencies": {
     "@heroicons/vue": "^2.0.18",
     "@tailwindcss/typography": "^0.5.9",
+    "@vueuse/head": "^2.0.0",
     "happy-dom": "^10.8.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
