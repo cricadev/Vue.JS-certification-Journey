@@ -14,8 +14,8 @@ const products = ref([
 
 
 const total = computed(() => {
-  if (products.value.forEach((product) => product.quantity < 0)) {
-    product.quantity = 0;
+  if (products.value.forEach((product) => product.quantity < 1)) {
+    console.log("it's zero")
   }
 
   return Math.round(
