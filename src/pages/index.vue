@@ -1,5 +1,5 @@
 <template >
-  <div class="pt-32">
+  <div class="pt-64">
     <h1 class="text-5xl font-bold text-center text-white uppercase">Vue.js Certification</h1>
 
     <div class="grid max-w-full grid-cols-3 grid-rows-3 gap-8 mt-16 place-items-center">
@@ -49,14 +49,14 @@ const challenges = [
     id: 3,
     name: "Shopping Cart Bug",
     description: "Fix a bug in an existing shopping cart application",
-    image: "/ShoppingCartBug.png",
+    image: "/ShoppingCart.png",
     url: "/shopping-cart",
   },
   {
     id: 4,
     name: "Simple Calculator",
     description: "Create a simple calculator application with Vue.js",
-    image: "/SimpleCalculator.png",
+    image: "/Calculator.png",
     url: "/calculator",
   },
   {

@@ -5,7 +5,30 @@
 .app {
   @apply max-w-full flex items-center justify-center h-screen mx-auto py-16 bg-[#2C3D4F];
 }
-
+.display-area {
+  @apply w-full h-16 flex flex-col items-center justify-center space-y-4 bg-green-500;
+}
+.numbers-buttons {
+  @apply grid w-full h-full grid-cols-3 col-start-1 col-end-4 row-start-2 row-end-6 gap-2;
+}
+.arithmetic-buttons {
+  @apply flex flex-col w-full h-full col-start-4 col-end-5 row-start-1 row-end-5 p-1 ml-2;
+}
+.clear-button {
+  @apply w-full h-full col-start-1 col-end-2 row-start-1 row-end-2 p-2;
+}
+.button {
+  @apply bg-gray-500 hover:bg-gray-400 w-full h-full rounded-md;
+}
+.grid-calculator {
+  @apply grid grid-cols-4  grid-rows-5 place-items-center;
+}
+.arithmetic-buttons {
+  @apply gap-2;
+}
+.equal-button {
+  @apply flex w-full h-full col-start-3 col-end-5 row-start-5 row-end-6 gap-2 p-1;
+}
 .movie-list {
   @apply flex items-center justify-center space-x-4;
 }

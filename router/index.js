@@ -5,6 +5,7 @@ import Movie from "../src/pages/Movie.vue";
 import Error404 from "../src/pages/Error.vue";
 import Countdown from "../src/pages/Countdown.vue";
 import ShoppingCart from "../src/pages/ShoppingCart.vue";
+import Calculator from "../src/pages/Calculator.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -28,6 +29,10 @@ const router = createRouter({
       path: "/movie/:id",
       component: Movie,
       props: true,
+    },
+    {
+      path: "/calculator",
+      component: Calculator,
     },
     {
       path: "/:pathMatch(.*)*",
