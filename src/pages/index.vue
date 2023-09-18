@@ -1,5 +1,5 @@
 <template >
-  <div class="pt-64">
+  <div class="pt-96">
     <h1 class="text-5xl font-bold text-center text-white uppercase">Vue.js Certification</h1>
 
     <div class="grid max-w-full grid-cols-3 grid-rows-3 gap-8 mt-16 place-items-center">
