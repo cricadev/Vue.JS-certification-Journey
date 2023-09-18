@@ -14,13 +14,9 @@ const products = ref([
 
 
 const total = computed(() => {
-  if (products.value.forEach((product) => product.quantity < 1)) {
-    console.log("it's zero")
-  }
 
-  return Math.round(
-    products.value.reduce((acc, product) => acc + product.price * product.quantity, 0) / 100
-  );
+  return Math.round(products.value.reduce((acc, product) => acc + product.price * product.quantity, 0) / 100).toFixed(2)
+
 });
 watch(products, () => {
   total.value;
@@ -45,18 +41,19 @@ function decreaseQuantity(product) {
             <span class="w-1/3 truncate">{{ product.name }}</span>
             <span>${{ product.price / 100 }}</span>
             <span class="inline-flex items-center justify-between space-x-3">
-              <button class="px-2 py-1 bg-blue-400 rounded-md hover:bg-blue-600" @click="decreaseQuantity(product)">
+              <button class="px-2 py-1 bg-blue-400 rounded-md hover:bg-blue-600 disabled:bg-gray-400"
+                @click="decreaseQuantity(product)" :disabled="product.quantity < 1">
                 -
               </button>
-              <span class="w-12 text-center">{{ product.quantity }}</span>
-              <button class="px-2 py-1 bg-blue-400 rounded-md hover:bg-blue-600" @click="increaseQuantity(product)">
-                +
-              </button>
+              <span class="w-12 text-center">{{ product.quantity < 1 ? product.quantity = 0 : product.quantity }}</span>
+                  <button class="px-2 py-1 bg-blue-400 rounded-md hover:bg-blue-600" @click="increaseQuantity(product)">
+                    +
+                  </button>
+              </span>
+              <span class="w-16 text-right">
+                ${{ ((product.price * product.quantity) / 100).toFixed(2) }}
+              </span>
             </span>
-            <span class="w-16 text-right">
-              ${{ (product.price * product.quantity) / 100 }}
-            </span>
-          </span>
         </li>
       </ul>
       <p class="flex items-center justify-between p-8 mt-4 text-3xl">
