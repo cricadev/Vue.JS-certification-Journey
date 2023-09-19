@@ -5,8 +5,17 @@
 .app {
   @apply max-w-full flex items-center justify-center h-screen mx-auto py-16 bg-[#2C3D4F];
 }
+.turn-label {
+  @apply text-red-200 mb-2 text-2xl text-center font-semibold;
+}
+.label-winner {
+  @apply text-red-200 mb-2 text-2xl text-center font-semibold;
+}
+.winning-cell {
+  @apply bg-red-200;
+}
 .board {
-  @apply grid grid-cols-3 grid-rows-3 bg-white w-96 h-96 border-2 border-black;
+  @apply grid grid-cols-3 grid-rows-3 bg-white max-w-lg lg:w-96 min-h-min lg:h-96 border-2 border-black  w-52 h-52 md:w-80 md:h-80 mx-auto;
 }
 .board-cell {
   @apply border-2 border-black grid place-items-center;
