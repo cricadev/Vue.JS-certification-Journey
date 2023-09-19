@@ -6,6 +6,7 @@ import Error404 from "../src/pages/Error.vue";
 import Countdown from "../src/pages/Countdown.vue";
 import ShoppingCart from "../src/pages/ShoppingCart.vue";
 import Calculator from "../src/pages/Calculator.vue";
+import TicTacToe from "../src/pages/TicTacToe.vue";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -24,6 +25,10 @@ const router = createRouter({
     {
       path: "/shopping-cart",
       component: ShoppingCart,
+    },
+    {
+      path: "/tic-tac-toe",
+      component: TicTacToe,
     },
     {
       path: "/movie/:id",

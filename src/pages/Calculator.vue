@@ -32,7 +32,7 @@ onMounted(() => {
   });
 })
 const display = ref("");
-const arithmeticSymbols = reactive(["\\+", "-", "\\*", "/", "\\."]);
+const arithmeticSymbols = ["+", "-", "*", "/", "."];
 const handleButtonNumber = (e) => {
   if (display.value == "" && e.target.innerText == "0") {
     return;
@@ -46,7 +46,7 @@ const clearAndResetCalculator = () => {
 const lastArithmeticSymbol = ref(null);
 const lastButtonClicked = ref(null)
 const handleArithmeticButton = (e) => {
-  const value = e.target.innerText;
+  let value = e.target.innerText;
   if (display.value === "") {
     return;
   }
@@ -55,9 +55,12 @@ const handleArithmeticButton = (e) => {
     display.value = display.value.slice(0, -1);
     display.value += value;
   }
-  else if (!isNaN(display.value.slice(-1))) {
+  else if (!isNaN(Number(display.value.slice(-1)))) {
     lastArithmeticSymbol.value = null;
     display.value += value;
+  }
+  else {
+    display.value += value
   }
 };
 const performCalculations = () => {
@@ -135,21 +138,16 @@ const handleDecimalButton = () => {
       </div>
 
       <div class="numbers-buttons">
-        <button class="button" @click="handleButtonNumber">1</button>
-        <button class="button" @click="handleButtonNumber">2</button>
-        <button class="button" @click="handleButtonNumber">3</button>
-        <button class="button" @click="handleButtonNumber">4</button>
-        <button class="button" @click="handleButtonNumber">5</button>
-        <button class="button" @click="handleButtonNumber">6</button>
-        <button class="button" @click="handleButtonNumber">7</button>
-        <button class="button" @click="handleButtonNumber">8</button>
-        <button class="button" @click="handleButtonNumber">9</button>
-        <button class="button" @click="handleButtonNumber">0</button>
+        <button class="button" @click="handleButtonNumber" v-for="number in 9" :key="number">{{ number }}</button>
+
       </div>
 
       <div class="equal-button">
-        <button class="button" @click="handleDecimalButton">.</button>
-        <button class="button" @click="performCalculations">=</button>
+        <button class="col-span-2 button" style="width: 50%;" @click="handleButtonNumber">0</button>
+        <div class="flex w-full h-full col-start-3 col-end-5 gap-2">
+          <button class="button" @click="handleDecimalButton">.</button>
+          <button class="button" @click="performCalculations">=</button>
+        </div>
       </div>
 
     </div>
