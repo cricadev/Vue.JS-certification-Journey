@@ -31,6 +31,10 @@ const router = createRouter({
       component: TicTacToe,
     },
     {
+      path: "/aquarium",
+      component: () => import("../src/pages/VirtualAquarium.vue"),
+    },
+    {
       path: "/movie/:id",
       component: Movie,
       props: true,

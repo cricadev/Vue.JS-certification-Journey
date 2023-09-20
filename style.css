@@ -5,6 +5,15 @@
 .app {
   @apply max-w-full flex items-center justify-center h-screen mx-auto py-16 bg-[#2C3D4F];
 }
+.aquarium-wrapper {
+  @apply w-full h-full grid items-center justify-center;
+}
+.fish-option {
+  @apply hover:scale-110 transform transition-all duration-300 hover:outline-red-500 hover:outline-2;
+}
+.selected-fish {
+  @apply outline-red-500 outline-2 grayscale scale-105;
+}
 .turn-label {
   @apply text-red-200 mb-2 text-2xl text-center font-semibold;
 }
