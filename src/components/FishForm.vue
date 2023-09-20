@@ -23,11 +23,11 @@
 
       <form @submit.prevent="handleFormSubmit" class="flex flex-col w-full h-full gap-12">
         <div class="grid w-full grid-cols-2 select-fish-image h-2/4">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="goldfish.png" alt="">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="golden-purple-fish.png" alt="">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="tuna.png" alt="">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="tropical-fish.png" alt="">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="guppie.png" alt="">
+          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/goldfish.png" alt="">
+          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/golden-purple-fish.png" alt="">
+          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/tuna.png" alt="">
+          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/tropical-fish.png" alt="">
+          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/guppie.png" alt="">
         </div>
         <div>
           <label for="first_name" class="block mb-2 text-sm font-medium text-white">Fish Name</label>
