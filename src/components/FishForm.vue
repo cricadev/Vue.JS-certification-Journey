@@ -23,11 +23,15 @@
 
       <form @submit.prevent="handleFormSubmit" class="flex flex-col w-full h-full gap-12">
         <div class="grid w-full grid-cols-2 select-fish-image h-2/4">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/goldfish.png" alt="">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/golden-purple-fish.png" alt="">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/tuna.png" alt="">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/tropical-fish.png" alt="">
-          <img id="fish-image" class="fish-option" @click="handleFishClick" src="/guppie.png" alt="">
+
+          <input type="text" name="fish-image" v-model="fish.image" class="absolute top-0 left-0 opacity-0" required>
+          <img id="fish-image" class="fish-option not-selected-fish" @click="handleFishClick" src="/goldfish.png" alt="">
+          <img id="fish-image" class="fish-option not-selected-fish" @click="handleFishClick"
+            src="/golden-purple-fish.png" alt="">
+          <img id="fish-image" class="fish-option not-selected-fish" @click="handleFishClick" src="/tuna.png" alt="">
+          <img id="fish-image" class="fish-option not-selected-fish" @click="handleFishClick" src="/tropical-fish.png"
+            alt="">
+          <img id="fish-image" class="fish-option not-selected-fish" @click="handleFishClick" src="/guppie.png" alt="">
         </div>
         <div>
           <label for="first_name" class="block mb-2 text-sm font-medium text-white">Fish Name</label>
@@ -35,7 +39,14 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="John" required v-model="fish.name">
         </div>
-
+        <button type="button" data-drawer-hide="drawer-example" aria-controls="drawer-example"
+          class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
+          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+          </svg>
+          <span class="sr-only">Close menu</span>
+        </button>
         <button type="submit"
           class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Add
           Fish</button>
@@ -46,36 +57,98 @@
 </template>
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
+import { Drawer } from 'flowbite';
 import {
   initDrawers,
-
 } from 'flowbite'
 
 // initialize components based on data attribute selectors
 onMounted(() => {
 
   initDrawers();
+
 })
+
 const isSelectedFish = ref(false)
 const fish = reactive({
   id: 0,
   name: '',
-  phrases: []
+  phrases: [],
+  image: '',
 })
+const emit = defineEmits(['addFish'])
 const handleFishClick = (e) => {
-  isSelectedFish.value = true;
-  const selectedFishImage = e.target.src;
+  const fishSelected = e.target;
+  const selectedFishSrc = e.target.src;
+  fishSelected.classList.add("selected-fish")
+  fishSelected.classList.remove("not-selected-fish")
   const fishesImages = document.querySelectorAll('#fish-image');
-  fishesImages.forEach((f) => {
-    if (!f.classList.contains('selected-fish') && isSelectedFish) {
-      e.target.classList.add('selected-fish');
-      isSelectedFish.value = false;
+  fishesImages.forEach((image) => {
+    if (fishSelected.classList.contains('selected-fish')) {
+      const matchesImage = image === fishSelected;
+      if (matchesImage) {
+        image.classList.add("selected-fish");
+        image.classList.remove("not-selected-fish");
+        isSelectedFish.value = true;
+      } else {
+        image.classList.add("not-selected-fish")
+        image.classList.remove("selected-fish")
+      }
     }
   })
-
+  if (isSelectedFish) {
+    fish.image = selectedFishSrc;
+    isSelectedFish.value = false;
+  }
 }
 const handleFormSubmit = () => {
-  console.log("fish submitted")
+  if (fish.image === '') {
+    const alert = document.querySelector('#alert-not-image-selected');
+    alert.classList.add('alert-not-image-selected--active')
+    alert.classList.remove('hidden')
+  } else {
+    console.log("fish submitted")
+    const newFish = {
+      id: Math.floor(Math.random() * 30),
+      name: fish.name,
+      image: fish.image,
+    }
+    emit('addFish', newFish)
+    fish.id = 0;
+    fish.name = '';
+    fish.image = '';
+
+    const fishesImages = document.querySelectorAll('#fish-image');
+
+    fishesImages.forEach((image) => {
+      image.classList.remove("selected-fish");
+      image.classList.add("not-selected-fish");
+    })
+    const $targetEl = document.getElementById('drawer-example');
+    const options = {
+      placement: 'left',
+      backdrop: true,
+      bodyScrolling: false,
+      edge: false,
+      edgeOffset: '',
+      backdropClasses: '',
+      onHide: () => {
+        console.log('drawer is hidden');
+        const backdrop = document.querySelector('[drawer-backdrop]');
+        if (backdrop) {
+          backdrop.remove();
+        }
+      },
+      onShow: () => {
+        console.log('drawer is shown');
+      },
+      onToggle: () => {
+        console.log('drawer has been toggled');
+      }
+    };
+    const drawer = new Drawer($targetEl, options);
+    drawer.hide()
+  }
 
 }
 </script>
