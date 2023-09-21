@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-screen" :class="[
+  <div ref="aquariumEl" class="w-screen h-screen" :class="[
     {
       'aquarium': fishes.length > 0
     }
@@ -22,11 +22,13 @@ import { ref, reactive, watch } from "vue";
 import Fish from "../components/Fish.vue"
 import FishForm from "../components/FishForm.vue"
 const fishes = ref([])
+const aquariumEl = ref(null)
 function getRandomArbitrary(min, max) {
   return Math.floor(Math.random() * (max - min) + min)
 }
+
 const addToAquarium = (fish) => {
-  fishes.value.push({ ...fish, timeToStarve: Math.floor(Math.random() * 21) + 10, speed: getRandomArbitrary(10, 20) });
+  fishes.value.push({ ...fish, timeToStarve: 20, speed: getRandomArbitrary(20, 50) });
 };
 </script>
 <style scoped>
