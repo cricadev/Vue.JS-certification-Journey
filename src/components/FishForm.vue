@@ -22,9 +22,10 @@
       tabindex="-1" aria-labelledby="drawer-label">
 
       <form @submit.prevent="handleFormSubmit" class="flex flex-col w-full h-full gap-12">
-        <div class="grid w-full grid-cols-2 select-fish-image h-2/4">
+        <div class="relative grid w-full grid-cols-2 select-fish-image h-2/4 place-items-center">
 
-          <input type="text" name="fish-image" v-model="fish.image" class="absolute top-0 left-0 opacity-0" required>
+          <input type="text" name="fish-image" v-model="fish.image"
+            class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] opacity-0" required>
           <img id="fish-image" class="fish-option not-selected-fish" @click="handleFishClick" src="/goldfish.png" alt="">
           <img id="fish-image" class="fish-option not-selected-fish" @click="handleFishClick"
             src="/golden-purple-fish.png" alt="">
@@ -38,6 +39,10 @@
           <input type="text" id="first_name"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="John" required v-model="fish.name">
+
+          <label for="speed" class="block my-2 text-white">Speed: {{ fish.speed }} </label>
+
+          <input type="range" id="speed" min="20" max="100" v-model="fish.speed" class="w-full">
         </div>
         <button type="button" data-drawer-hide="drawer-example" aria-controls="drawer-example"
           class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -75,14 +80,21 @@ const fish = reactive({
   name: '',
   phrases: [],
   image: '',
+  speed: 0,
+
 })
+
+
 const emit = defineEmits(['addFish'])
 const handleFishClick = (e) => {
   const fishSelected = e.target;
+
   const selectedFishSrc = e.target.src;
   fishSelected.classList.add("selected-fish")
   fishSelected.classList.remove("not-selected-fish")
+
   const fishesImages = document.querySelectorAll('#fish-image');
+
   fishesImages.forEach((image) => {
     if (fishSelected.classList.contains('selected-fish')) {
       const matchesImage = image === fishSelected;
@@ -101,54 +113,54 @@ const handleFishClick = (e) => {
     isSelectedFish.value = false;
   }
 }
+
+
 const handleFormSubmit = () => {
-  if (fish.image === '') {
-    const alert = document.querySelector('#alert-not-image-selected');
-    alert.classList.add('alert-not-image-selected--active')
-    alert.classList.remove('hidden')
-  } else {
-    console.log("fish submitted")
-    const newFish = {
-      id: Math.floor(Math.random() * 30),
-      name: fish.name,
-      image: fish.image,
-    }
-    emit('addFish', newFish)
-    fish.id = 0;
-    fish.name = '';
-    fish.image = '';
-
-    const fishesImages = document.querySelectorAll('#fish-image');
-
-    fishesImages.forEach((image) => {
-      image.classList.remove("selected-fish");
-      image.classList.add("not-selected-fish");
-    })
-    const $targetEl = document.getElementById('drawer-example');
-    const options = {
-      placement: 'left',
-      backdrop: true,
-      bodyScrolling: false,
-      edge: false,
-      edgeOffset: '',
-      backdropClasses: '',
-      onHide: () => {
-        console.log('drawer is hidden');
-        const backdrop = document.querySelector('[drawer-backdrop]');
-        if (backdrop) {
-          backdrop.remove();
-        }
-      },
-      onShow: () => {
-        console.log('drawer is shown');
-      },
-      onToggle: () => {
-        console.log('drawer has been toggled');
-      }
-    };
-    const drawer = new Drawer($targetEl, options);
-    drawer.hide()
+  const newFish = {
+    id: Math.floor(Math.random() * 30),
+    name: fish.name,
+    image: fish.image,
+    speed: fish.speed,
   }
+
+  emit('addFish', newFish);
+
+  fish.id = 0;
+  fish.name = '';
+  fish.image = '';
+  fish.speed = 20;
+
+  const fishesImages = document.querySelectorAll('#fish-image');
+
+  fishesImages.forEach((image) => {
+    image.classList.remove("selected-fish");
+    image.classList.add("not-selected-fish");
+  })
+  const $targetEl = document.getElementById('drawer-example');
+  const options = {
+    placement: 'left',
+    backdrop: true,
+    bodyScrolling: false,
+    edge: false,
+    edgeOffset: '',
+    backdropClasses: '',
+    onHide: () => {
+      console.log('drawer is hidden');
+      const backdrop = document.querySelector('[drawer-backdrop]');
+      if (backdrop) {
+        backdrop.remove();
+      }
+    },
+    onShow: () => {
+      console.log('drawer is shown');
+    },
+    onToggle: () => {
+      console.log('drawer has been toggled');
+    }
+  };
+  const drawer = new Drawer($targetEl, options);
+  drawer.hide()
+
 
 }
 </script>

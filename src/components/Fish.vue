@@ -1,20 +1,23 @@
 <template>
   <div v-if="fish">
-    <div class="absolute fish-wrapper" ref="fishEl">
-      <img ref="fishImg" :src="fish.image" :title="fish.name" class="w-64 h-full fish-alive" @click="handleFoodByClick">
+    <div class="absolute fish-wrapper" ref="fishEl" @click="handleFoodByClick">
+      <img ref="fishImg" :src="fish.image" :title="fish.name" class="w-64 h-full fish-alive">
 
       <TransitionGroup>
         <span class="text-fish" v-if="bornToBeWild">
           {{ randomBornTexts }}
         </span>
-        <span class="text-fish" v-if="aboutToStarve">
+        <span class="text-fish" v-else-if="aboutToStarve">
           {{ aboutToStarveTexts }}
         </span>
-        <span class="text-fish" v-if="isStarving">
-          {{ almostDead }}
+        <span class="text-fish" v-else-if="isStarving">
+          {{ almostDeadTexts }}
+        </span>
+        <span class="text-fish" v-if="isDeadbcOfFat">
+          {{ fatTexts }}
         </span>
       </TransitionGroup>
-      <div class="absolute bottom-0 h-4 bg-green-500" :class="[{
+      <div v-if="!isDead" class="absolute bottom-0 h-4 bg-green-500" :class="[{
         'bg-yellow-300': fish.timeToStarve <= 10
       },
       {
@@ -36,6 +39,7 @@ const fishImg = ref(null);
 const isStarving = ref(false);
 const aboutToStarve = ref(false);
 const bornToBeWild = ref(true);
+const isDeadbcOfFat = ref(false);
 const randomBornTexts = computed(() => {
   const texts = ['conchesumaderee', 'bobby fisher just reborn', 'im looking for nemo', 'Im aliveeee'];
   const randomIndex = Math.floor(Math.random() * texts.length);
@@ -46,8 +50,13 @@ const aboutToStarveTexts = computed(() => {
   const randomIndex = Math.floor(Math.random() * texts.length);
   return texts[randomIndex];
 })
-const almostDead = computed(() => {
+const almostDeadTexts = computed(() => {
   const texts = ['GONNA DIEEEE', 'HELP MEE', 'AAAAH'];
+  const randomIndex = Math.floor(Math.random() * texts.length);
+  return texts[randomIndex];
+})
+const fatTexts = computed(() => {
+  const texts = ['BRUICE BRUICE', 'BURGUER FISH', 'YOU KILLED ME'];
   const randomIndex = Math.floor(Math.random() * texts.length);
   return texts[randomIndex];
 })
@@ -57,6 +66,7 @@ setTimeout(() => {
 let clean = null;
 
 const handleFoodByClick = () => {
+  props.fish.timeToStarve += 5;
 
 }
 /* utility function*/
@@ -80,6 +90,7 @@ const props = defineProps({
 })
 // the function where we spawn the fish
 const spawnFish = () => {
+
   // we get the measurements of the fishImg.value with rect.
   const rect = fishImg.value.getBoundingClientRect();
   // create coordinates for the X and Y, this is going to give us a random value using our util func between 0 and the screenWidth - the measurements of the fish so we don't get outside of the boundaries 
@@ -111,7 +122,39 @@ let timeSinceDirectionChange = 0;
 const moveFish = (time) => {
   // if the fish is dead then we don't use the function
   if (isDead.value) {
-    return;
+
+    if (lastTime === null) {
+      lastTime = time;
+    }
+
+    const elapsed = time - lastTime;
+
+
+    const distance = props.fish.speed * elapsed / 1000;
+
+    directionY = -1;
+
+    props.fish.y -= distance * directionY;
+
+    if (fishEl.value) {
+      if (props.fish.y > screenHeight.value - fishImg.value.height) {
+        props.fish.y = screenHeight.value - fishImg.value.height;
+        props.fish.speed = 0;
+        fishImg.value.classList.add('fish--is-dead')
+      }
+      fishEl.value.style.left = `${props.fish.x}px`;
+      fishEl.value.style.top = `${props.fish.y}px`;
+
+      // if direction is equals -1 then we scaleX -1 so it flips, this is a common trick in game Dev
+      if (directionX === -1) {
+        fishImg.value.style.transform = 'scaleX(-1)';
+      } else {
+        fishImg.value.style.transform = 'scaleX(1)';
+
+      }
+    }
+
+    lastTime = time;
   } else {
 
     // we assing the first time when we call the function since we are calling it as a callback function of requestAnimationFrame a webAPI
@@ -203,6 +246,13 @@ watchEffect(() => {
       }, 3000)
       requestAnimationFrame(moveFish)
 
+    } else if (props.fish.timeToStarve > 30) {
+      isDeadbcOfFat.value = true;
+      fishJustDied()
+      setTimeout(() => {
+        isDeadbcOfFat.value = false;
+      }, 3000)
+      requestAnimationFrame(moveFish)
     }
     else {
       requestAnimationFrame(moveFish)
@@ -223,5 +273,25 @@ watchEffect(() => {
 .v-enter-from,
 .v-leave-to {
   opacity: 0;
+}
+
+
+.fish--is-dead {
+  animation-name: dead;
+  animation-duration: 3000ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+
+}
+
+@keyframes dead {
+  0% {
+    opacity: 1;
+  }
+
+
+  100% {
+    opacity: 0;
+  }
 }
 </style>

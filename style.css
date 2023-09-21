@@ -21,6 +21,7 @@
 .not-selected-fish {
   @apply outline-none scale-100 grayscale-0;
 }
+
 .turn-label {
   @apply text-red-200 mb-2 text-2xl text-center font-semibold;
 }
