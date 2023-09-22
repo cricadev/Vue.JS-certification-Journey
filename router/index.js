@@ -39,6 +39,10 @@ const router = createRouter({
       component: () => import("../src/pages/Quiz.vue"),
     },
     {
+      path: "/task-list",
+      component: () => import("../src/pages/Task.vue"),
+    },
+    {
       path: "/movie/:id",
       component: Movie,
       props: true,
