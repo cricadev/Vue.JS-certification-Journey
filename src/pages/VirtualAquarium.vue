@@ -9,7 +9,7 @@
 
     <Fish v-for="fish in fishes" :key="fish.id" :fish="fish" />
     <div
-      class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] text-5xl text-center font-bold text-white flex items-center justify-center gap-8 animate-pulse"
+      class="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%]  text-center font-bold text-white flex items-center justify-center gap-8 animate-pulse text-xl lg:text-5xl pointer-events-none"
       v-if="fishes.length < 1">
       <svg class="w-24 h-24 text-white animate-bounce" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
         stroke-width="1.5" stroke="currentColor">
