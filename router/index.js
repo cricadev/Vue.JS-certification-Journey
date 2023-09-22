@@ -35,6 +35,10 @@ const router = createRouter({
       component: () => import("../src/pages/VirtualAquarium.vue"),
     },
     {
+      path: "/quiz",
+      component: () => import("../src/pages/Quiz.vue"),
+    },
+    {
       path: "/movie/:id",
       component: Movie,
       props: true,

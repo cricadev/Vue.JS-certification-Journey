@@ -70,7 +70,7 @@ const challenges = [
     id: 6,
     name: "Virtual Aquarium",
     description: "Create a virtual aquarium with Vue.js",
-    image: "/VirtualAquarium.png",
+    image: "/Aquarium.png",
     url: "/aquarium",
   },
   {
