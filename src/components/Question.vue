@@ -31,8 +31,8 @@
         {{ question.question }}</h2>
       <div class="flex flex-col px-8 mx-auto mt-4">
         <label v-for="answer in question.options" class="inline-flex items-center">
-          <input type="radio" class="w-5 h-5 text-gray-600 form-radio" name="answer" :value="answer" required
-            @click="answerValue = $event.target.value">
+          <input type="radio" ref="radioButtons" class="w-5 h-5 text-gray-600 form-radio" name="answer" :value="answer"
+            required @click="answerValue = $event.target.value">
           <span class="ml-2 text-white">{{ answer }}</span>
         </label>
       </div>
@@ -64,6 +64,7 @@ Provide a "Next" button to load the next question.
 Keep track of the user's score throughout the quiz.
 Display the final score after the last question.
 */
+const radioButtons = ref(null)
 const countCorrectAnswers = ref(0)
 const isCorrectAnswer = ref(false);
 const isWrongAnswer = ref(false)
@@ -122,6 +123,8 @@ const handleNextQuestionButton = (e) => {
   isCorrectAnswer.value = false;
   isWrongAnswer.value = false;
   isSubmit.value = false;
+  answerValue.value = '';
+  radioButtons.value.forEach((r) => r.checked = false)
 }
 
 </script>
