@@ -1,8 +1,8 @@
 <template >
-  <div class="pt-96">
-    <h1 class="text-5xl font-bold text-center text-white uppercase">Vue.js Certification</h1>
+  <div class="w-screen h-screen bg-[#2C3D4F] overflow-x-hidden">
+    <h1 class="pt-8 text-5xl font-bold text-center text-white uppercase">Vue.js Certification</h1>
 
-    <div class="grid max-w-full grid-cols-3 grid-rows-3 gap-8 mt-16 place-items-center">
+    <div class="grid max-w-full grid-cols-3 grid-rows-3 gap-8 mt-16 place-items-center bg-[#2C3D4F] px-32">
       <router-link v-for="challenge in challenges" class=" challenge-item" :to="challenge.url" :key="challenge.id">
         <h1 class="py-4 text-2xl font-bold text-center text-green-300 bg-white">
           {{ challenge.name }}
@@ -77,7 +77,7 @@ const challenges = [
     id: 7,
     name: "Multiple Choice Quiz",
     description: "Create a multiple choice quiz with Vue.js",
-    image: "/MultipleChoiceQuiz.png",
+    image: "/Quiz.png",
     url: "/quiz",
   },
   {
