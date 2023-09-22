@@ -43,6 +43,10 @@ const router = createRouter({
       component: () => import("../src/pages/Task.vue"),
     },
     {
+      path: "/profile",
+      component: () => import("../src/pages/Profile.vue"),
+    },
+    {
       path: "/movie/:id",
       component: Movie,
       props: true,
