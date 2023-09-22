@@ -1,7 +1,7 @@
 <template>
   <div v-if="fish">
     <div class="absolute fish-wrapper" ref="fishEl" @click="handleFoodByClick">
-      <img ref="fishImg" :src="fish.image" :title="fish.name" class="w-64 h-full fish-alive">
+      <img ref="fishImg" :src="fish.image" :title="fish.name" class="w-32 h-full lg:w-64 fish-alive">
 
       <TransitionGroup>
         <span class="text-fish" v-if="bornToBeWild">
