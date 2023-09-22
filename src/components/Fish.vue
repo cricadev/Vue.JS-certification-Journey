@@ -17,13 +17,9 @@
           {{ fatTexts }}
         </span>
       </TransitionGroup>
-      <div v-if="!isDead" class="absolute bottom-0 h-4 bg-green-500" :class="[{
-        'bg-yellow-300': fish.timeToStarve <= 10
-      },
-      {
-        'bg-red-600': fish.timeToStarve <= 5
-      }
-        ,]" :style="{ width: `${(fish.timeToStarve / 20) * 100}%`, transition: 'width 0.5s linear' }"></div>
+      <div v-if="!isDead" class="absolute bottom-0 w-full h-4"
+        :style="{ background: `linear-gradient(to left, #FF0000 ${100 - (fish.timeToStarve / (1000 / fish.speed)) * 100}%, #00FF00 ${100 - (fish.timeToStarve / (1000 / fish.speed)) * 100}% 100%)`, transition: 'background 0.5s linear' }">
+      </div>
     </div>
   </div>
 </template>
@@ -246,7 +242,7 @@ watchEffect(() => {
       }, 3000)
       requestAnimationFrame(moveFish)
 
-    } else if (props.fish.timeToStarve > 30) {
+    } else if (props.fish.timeToStarve > 50) {
       isDeadbcOfFat.value = true;
       fishJustDied()
       setTimeout(() => {

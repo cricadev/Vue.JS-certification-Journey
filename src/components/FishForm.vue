@@ -80,7 +80,7 @@ const fish = reactive({
   name: '',
   phrases: [],
   image: '',
-  speed: 0,
+  speed: 20,
 
 })
 

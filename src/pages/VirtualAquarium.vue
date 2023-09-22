@@ -33,7 +33,7 @@ function getRandomArbitrary(min, max) {
 }
 
 const addToAquarium = (fish) => {
-  fishes.value.push({ ...fish, timeToStarve: 3 });
+  fishes.value.push({ ...fish, timeToStarve: 1000 / fish.speed });
 };
 
 watch(aquariumEl, (newValue) => {
