@@ -84,14 +84,14 @@ const challenges = [
     id: 8,
     name: "Task List Bug",
     description: "Fix a bug in an existing task list application",
-    image: "/TaskListBug.png",
+    image: "/Task.png",
     url: "/task-list",
   },
   {
     id: 9,
     name: "Profile Form Bug",
     description: "Fix a bug in an existing user profile form",
-    image: "/ProfileFormBug.png",
+    image: "/Profile.png",
     url: "/profile",
   },
 ];
